@@ -27,6 +27,9 @@ class Boid {
         
         const alignmentSteering = this._alignment(boids);
         this.acceleration.add(alignmentSteering);
+
+        const cohesionSteering = this._cohesion(boids);
+        this.acceleration.add(cohesionSteering);
     }
 
     update() {
@@ -77,6 +80,27 @@ class Boid {
         }
         if (count > 0) {
             steering.div(count);
+            steering.setMag(this.maxVelocity);
+            steering.sub(this.velocity);
+            steering.limit(this.maxForce);
+        }
+        return steering;
+    }
+
+    _cohesion(boids) {
+        const perceptionRadius = 50;
+        const steering = createVector(0, 0);
+        let count = 0;
+        for (let boid of boids) {
+            const distance = dist(this.position.x, this.position.y, boid.position.x, boid.position.y);
+            if (boid != this && distance < perceptionRadius) {
+                steering.add(boid.position);
+                count++;
+            }
+        }
+        if (count > 0) {
+            steering.div(count);
+            steering.sub(this.position);
             steering.setMag(this.maxVelocity);
             steering.sub(this.velocity);
             steering.limit(this.maxForce);
