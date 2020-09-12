@@ -24,6 +24,9 @@ class Boid {
     flock(boids) {
         const separationSteering = this._separation(boids);
         this.acceleration.add(separationSteering);
+        
+        const alignmentSteering = this._alignment(boids);
+        this.acceleration.add(alignmentSteering);
     }
 
     update() {
@@ -49,6 +52,26 @@ class Boid {
                 let difference = p5.Vector.sub(this.position, boid.position);
                 difference.div(distance * distance);
                 steering.add(difference);
+                count++;
+            }
+        }
+        if (count > 0) {
+            steering.div(count);
+            steering.setMag(this.maxVelocity);
+            steering.sub(this.velocity);
+            steering.limit(this.maxForce);
+        }
+        return steering;
+    }
+
+    _alignment(boids) {
+        const perceptionRadius = 50;
+        const steering = createVector(0, 0);
+        let count = 0;
+        for (let boid of boids) {
+            const distance = dist(this.position.x, this.position.y, boid.position.x, boid.position.y);
+            if (boid != this && distance < perceptionRadius) {
+                steering.add(boid.velocity);
                 count++;
             }
         }
