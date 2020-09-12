@@ -15,6 +15,7 @@ function draw() {
     background(64);
     for (let boid of boids) {
         boid.edges();
+        boid.flock(boids);
         boid.update();
         boid.show();
     }
