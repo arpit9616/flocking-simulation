@@ -3,10 +3,19 @@
  *              p2.js along with other bootstraping variables
  */
 
+const boids = [];
+const numberOfBoids = 100;
+
 function setup() {
     createCanvas(640, 360);
+    for (let i = 0; i < numberOfBoids; i++) { boids.push(new Boid()); }
 }
 
 function draw() {
     background(64);
+    for (let boid of boids) {
+        boid.edges();
+        boid.update();
+        boid.show();
+    }
 }
