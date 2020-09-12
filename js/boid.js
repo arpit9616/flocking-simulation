@@ -23,12 +23,15 @@ class Boid {
 
     flock(boids) {
         const separationSteering = this._separation(boids);
+        separationSteering.mult(separationSlider.value());
         this.acceleration.add(separationSteering);
         
         const alignmentSteering = this._alignment(boids);
+        alignmentSteering.mult(alignmentSlider.value());
         this.acceleration.add(alignmentSteering);
 
         const cohesionSteering = this._cohesion(boids);
+        cohesionSteering.mult(cohesionSlider.value());
         this.acceleration.add(cohesionSteering);
     }
 
