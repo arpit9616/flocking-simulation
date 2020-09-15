@@ -10,9 +10,9 @@ let separationSlider, alignmentSlider, cohesionSlider;
 
 function setup() {
     createCanvas(640, 360);
-    separationSlider = createSlider(0, 4, 1, 0.1);
-    alignmentSlider = createSlider(0, 4, 1, 0.1);
-    cohesionSlider = createSlider(0, 4, 1, 0.1);
+    separationSlider = createSlider(0, 1, 0.1, 0.1);
+    alignmentSlider = createSlider(0, 1, 0.1, 0.1);
+    cohesionSlider = createSlider(0, 1, 0.1, 0.1);
     for (let i = 0; i < numberOfBoids; i++) { boids.push(new Boid()); }
 }
 
