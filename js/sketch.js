@@ -1,6 +1,6 @@
 /**
  * sketch.js - containing 'setup' and 'draw' funtions for
- *              p2.js along with other bootstraping variables
+ *              p5.js along with other bootstraping variables
  */
 
 const boids = [];
